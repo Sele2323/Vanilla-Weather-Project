@@ -37,9 +37,16 @@ function displayTemperature(response) {
   timeElement = document.querySelector("#time").innerHTML = formatDate(
     response.data.dt + 1000
   );
+  let iconElement = document
+    .querySelector("#icon")
+    .setAttribute(
+      "src",
+      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+  console.log(response.data);
 }
-
+let city = "Cape Town";
 let apiKey = "93deded4294438a23eae320afe21c38d";
 
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Maseru&appid=${apiKey}&units=metric`;
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 axios.get(apiUrl).then(displayTemperature);
