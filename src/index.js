@@ -6,7 +6,7 @@ function formatDate(timestamp) {
   }
   let minutes = date.getMinutes();
   if (minutes < 10) {
-    let minutes = `0${hours}`;
+    let minutes = `0${minutes}`;
   }
   let days = [
     "sunday",
@@ -20,6 +20,17 @@ function formatDate(timestamp) {
 
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
+}
+function handleSubmit(city) {
+  let apiKey = "93deded4294438a23eae320afe21c38d";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+function searchCity(event) {
+  event.preventDefault();
+
+  let city = document.querySelector("#city-input").value;
+  handleSubmit(city);
 }
 
 function displayTemperature(response) {
@@ -43,10 +54,10 @@ function displayTemperature(response) {
       "src",
       `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
-  console.log(response.data);
 }
-let city = "Cape Town";
-let apiKey = "93deded4294438a23eae320afe21c38d";
 
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-axios.get(apiUrl).then(displayTemperature);
+let form = document.querySelector("#weather-form");
+form.addEventListener("submit", handleSubmit);
+
+let searchButton = document.querySelector("#btn-search");
+searchButton.addEventListener("click", searchCity);

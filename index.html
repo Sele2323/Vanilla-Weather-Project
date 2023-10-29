@@ -15,7 +15,12 @@
     <div class="container">
       <div class="weather-app">
         <form id="weather-form">
-          <input type="text" placeholder="Enter a city" id="city-input" />
+          <input
+            type="text"
+            placeholder="Enter a city"
+            id="city-input"
+            autocomplete="off"
+          />
           <button type="button" class="btn-btn" id="btn-search">search</button>
         </form>
         <h1 id="h1-city"></h1>
@@ -26,8 +31,11 @@
               <li><span id="description"></span></li>
 
               <li>
-                Humidity: <span id="humidity">55%</span>, Wind:
-                <span id="wind"></span>7.60km/h
+                Humidity:<span id="humidity"></span>
+                <span id="percentage">%</span>
+                Wind:
+                <span id="wind"></span>
+                <span id="wind-speed">km/h</span>
               </li>
             </ul>
           </div>
@@ -40,8 +48,9 @@
                 class="cloudy-icon"
               />
               <span class="temp">
-                <strong id="temperature">24ºC </strong>
+                <strong id="temperature"> </strong>
               </span>
+              <span id="unit">ºC</span>
               |
               <a
                 href="https://www.google.com/search?q=google+weather&oq=google+we&gs_lcrp=EgZjaHJvbWUqDQgCEAAYgwEYsQMYgAQyBggAEEUYOTIHCAEQABiABDINCAIQABiDARixAxiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIGCAYQRRg8MgYIBxBFGDzSAQg3MTQ2ajBqNKgCALACAA&sourceid=chrome&ie=UTF-8#"
