@@ -52,3 +52,13 @@ li {
 #celcius-link {
   text-decoration: none;
 }
+.weather-forecast {
+  text-align: center;
+  margin-top: 20px;
+}
+.weather-forecast-date {
+  font-size: 16px;
+}
+.weather-forecast-temp {
+  font-size: 13px;
+}
