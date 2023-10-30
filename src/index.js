@@ -22,28 +22,18 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
-function displayCelcius(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  let currentTemperature = temperatureElement.innerHTML;
-  temperatureElement.innerHTML = convertToCelsius(currentTemperature);
-  let temperatureInCelsius = ((currentTemperature - 32) * 5) / 9;
-  temperatureElement.innerHTML = Math.round(temperatureInCelsius);
-}
+//function convertToCelsius(temperature) {
+//return Math.round(temperature);
+//}
 
-function convertToCelsius(temperature) {
-  return Math.round(temperature);
-}
+//function convertToFahrenheit(temperature) {
+//return Math.round((celciusTemperature * 9) / 5 + 32);}
 
-function convertToFahrenheit(temperature) {
-  return Math.round((temperature * 9) / 5 + 32);
-}
 function displayFahrenheit(event) {
   event.preventDefault();
+  let fahrenheitTemperature = (celciusTemperature * 9) / 5 + 32;
   let temperatureElement = document.querySelector("#temperature");
-  let currentTemperature = temperatureElement.innerHTML;
-  let temperatureInFahrenheit = convertToFahrenheit(currentTemperature);
-  temperatureElement.innerHTML = temperatureInFahrenheit;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
 function handleSubmit(city) {
@@ -79,8 +69,20 @@ function displayTemperature(response) {
       "src",
       `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
+
+  celciusTemperature = response.data.main.temp;
+}
+function displayCelcius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
+
+  let currentTemperature = temperatureElement.innerHTML;
+  temperatureElement.innerHTML = convertToCelsius(currentTemperature);
+  let temperatureInCelsius = ((currentTemperature - 32) * 5) / 9;
 }
 
+let celciusTemperature = null;
 let form = document.querySelector("#weather-form");
 form.addEventListener("submit", handleSubmit);
 
@@ -93,5 +95,7 @@ fahrenheitElement.addEventListener("click", displayFahrenheit);
 let temperatureDisplay = (document.querySelector("#temperature").innerHTML =
   fahrenheitElement);
 
-let celciusElement = document.querySelector("#celcius-unit");
+let celciusElement = document.querySelector("#celcius-link");
 celciusElement.addEventListener("click", displayCelcius);
+
+search("New York");

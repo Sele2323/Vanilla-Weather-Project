@@ -46,3 +46,9 @@ li {
   padding: 0;
   text-transform: capitalize;
 }
+#fahrenheit {
+  text-decoration: none;
+}
+#celcius-link {
+  text-decoration: none;
+}
