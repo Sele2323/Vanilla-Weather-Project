@@ -26,7 +26,7 @@ function displayCelcius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
   let currentTemperature = temperatureElement.innerHTML;
-  temperatureElement.innerHTML = convertToCelsius(parseInt(currentTemperature));
+  temperatureElement.innerHTML = convertToCelsius(currentTemperature);
 }
 
 function convertToCelsius(temperature) {
