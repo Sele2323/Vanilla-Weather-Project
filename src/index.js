@@ -6,7 +6,7 @@ function formatDate(timestamp) {
   }
   let minutes = date.getMinutes();
   if (minutes < 10) {
-    let minutes = `0${minutes}`;
+    minutes = `0${minutes}`;
   }
   let days = [
     "sunday",
@@ -20,6 +20,13 @@ function formatDate(timestamp) {
 
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
+}
+
+function displayCelcius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let currentTemperature = temperatureElement.innerHTML;
+  temperatureElement.innerHTML = convertToCelsius(parseInt(currentTemperature));
 }
 
 function convertToCelsius(temperature) {
@@ -70,7 +77,6 @@ function displayTemperature(response) {
       "src",
       `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
-  temperatureElement.innerHTML = convertToCelsius(temperature);
 }
 
 let form = document.querySelector("#weather-form");
@@ -82,6 +88,8 @@ searchButton.addEventListener("click", searchCity);
 let fahrenheitElement = document.querySelector("#fahrenheit");
 fahrenheitElement.addEventListener("click", displayFahrenheit);
 
-let temperatureDisplay = (document.querySelector(
-  "#temperature"
-).temperatureDisplay.innerHTML = fahrenheitElement);
+let temperatureDisplay = (document.querySelector("#temperature").innerHTML =
+  fahrenheitElement);
+
+let celciusElement = document.querySelector("#celcius-unit");
+celciusElement.addEventListener("click", displayCelcius);
