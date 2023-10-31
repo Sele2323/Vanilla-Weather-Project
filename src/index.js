@@ -88,4 +88,4 @@ fahrenheitElement.addEventListener("click", displayFahrenheit);
 let celciusElement = document.querySelector("#celcius-link");
 celciusElement.addEventListener("click", displayCelcius);
 
-handleSubmit("New York");
+//handleSubmit("New York");

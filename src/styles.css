@@ -61,4 +61,11 @@ li {
 }
 .weather-forecast-temp {
   font-size: 13px;
+  color: red;
+}
+.forecast-max {
+  font-weight: 700;
+}
+.forecast-min {
+  opacity: 0.5;
 }
