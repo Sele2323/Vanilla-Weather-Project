@@ -21,7 +21,11 @@ function formatDate(timestamp) {
   let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
-
+function getForecast(coordinates) {
+  let apiKey = "1dbf926d3b4417bf379db7043bec1047";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
 function displayTemperature(response) {
   let temperatureElement = (document.querySelector("#temperature").innerHTML =
     Math.round(response.data.main.temp));
@@ -37,14 +41,16 @@ function displayTemperature(response) {
   timeElement = document.querySelector("#time").innerHTML = formatDate(
     response.data.dt + 1000
   );
-  let iconElement = document
-    .querySelector("#icon")
-    .setAttribute(
-      "src",
-      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 
   celciusTemperature = response.data.main.temp;
+
+  getForecast(response.data.coord);
 }
 
 function searchCity(event) {
@@ -75,6 +81,36 @@ function displayCelcius(event) {
   let temperatureInCelsius = ((currentTemperature - 32) * 5) / 9;
 }
 
+function displayForecast(response) {
+  console.log(response.data);
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+
+  let days = ["Tues", "Wed", "Thu", "Fri", "Sat"];
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2">
+       <div class="weather-forecast-date">
+        ${day}</div>
+        <img
+          src="https://ssl.gstatic.com/onebox/weather/64/cloudy.png"
+          width="36"
+          alt=""
+        />
+        <div class="weather-forecast-temp">
+          <span class="forecast-max">22º</span>
+          <span class="forecast-min">16º</span>
+        </div>
+      </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let celciusTemperature = null;
 let form = document.querySelector("#weather-form");
 form.addEventListener("submit", handleSubmit);
@@ -88,4 +124,4 @@ fahrenheitElement.addEventListener("click", displayFahrenheit);
 let celciusElement = document.querySelector("#celcius-link");
 celciusElement.addEventListener("click", displayCelcius);
 
-//handleSubmit("New York");
+handleSubmit("New York");
