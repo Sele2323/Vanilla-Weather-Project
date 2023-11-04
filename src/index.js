@@ -83,32 +83,45 @@ function displayCelcius(event) {
 
 function displayForecast(response) {
   console.log(response.data);
+  let forecast = response.data.daily;
+
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
 
-  let days = ["Tues", "Wed", "Thu", "Fri", "Sat"];
+  forecast.forEach(function (day, index) {
+    let weatherCondition = day.weather.icon;
 
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2">
        <div class="weather-forecast-date">
-        ${day}</div>
+      ${formatDay(day.time)}</div>
+               <div class="weather-condition">${weatherCondition}</div>
+
         <img
-          src="https://ssl.gstatic.com/onebox/weather/64/cloudy.png"
+          src= "{day.weather[0].icon_url}"
           width="36"
           alt=""
         />
         <div class="weather-forecast-temp">
-          <span class="forecast-max">22º</span>
-          <span class="forecast-min">16º</span>
+          <span class="forecast-max">${Math.round(day.temp.max)}º</span>
+          <span class="forecast-min">${Math.round(day.temp.min)}º</span>
         </div>
+        </div
       </div>`;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
 }
 
 let celciusTemperature = null;
